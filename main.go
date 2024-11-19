@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/charmbracelet/bubbles/table"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"os"
-	"time"
 )
 
 func main() {
 
-	fileName := "storage.json"
+	fileName := "data/storage.json"
 
 	todos := Todos{}
 	storage, error := NewStorage[Todos](fileName)
@@ -23,11 +24,11 @@ func main() {
 	}
 
 	colums := []table.Column{
-		{Title: "#", Width: 2},
-		{Title: "Title", Width: 30},
+		{Title: "#", Width: 1},
+		{Title: "Title", Width: 60},
 		{Title: "Status", Width: 10},
-		{Title: "Added At", Width: 40},
-		{Title: "Completed At", Width: 40},
+		{Title: "Added At", Width: 30},
+		{Title: "Completed At", Width: 30},
 	}
 
 	rows := make([]table.Row, len(todos))
@@ -61,13 +62,15 @@ func main() {
 		Bold(false)
 	myTable.SetStyles(style)
 
-	fmt.Print("before start")
 	m := model{todos: &todos, table: myTable}
-	if _, err := tea.NewProgram(m).Run(); err != nil {
+
+	p := tea.NewProgram(m)
+	if _, err := p.Run(); err != nil {
 		fmt.Println("Error running program - " + err.Error())
 		os.Exit(1)
 	}
-	// if err := storage.Load(todos); err != nil {
-	// 	fmt.Println("Error while saving data - " + err.Error())
-	// }
+
+	if err := storage.Save(&todos); err != nil {
+		fmt.Println("Error while saving data - " + err.Error())
+	}
 }

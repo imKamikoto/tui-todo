@@ -1,0 +1,20 @@
+[
+  {
+    "Title": "Math course homework",
+    "Completed": true,
+    "AddedAt": "2024-11-18T18:57:44.178074+03:00",
+    "CompletedAt": "2024-11-19T19:12:51.064657+03:00"
+  },
+  {
+    "Title": "Buy milk",
+    "Completed": false,
+    "AddedAt": "2024-11-18T19:15:16.686262+03:00",
+    "CompletedAt": null
+  },
+  {
+    "Title": "Microelectronics class",
+    "Completed": false,
+    "AddedAt": "2024-11-19T19:15:34.118145+03:00",
+    "CompletedAt": null
+  }
+]

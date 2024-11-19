@@ -15,12 +15,6 @@ type Todo struct {
 
 type Todos []Todo
 
-// validate index(index int)
-// add(name string)
-// delete(index int)
-// rename(index int, newName string)
-// toggle(index int)
-
 func (todos *Todos) validateIndex(index int) error {
 	if index < 0 || index >= len(*todos) {
 		return errors.New("Invalid index: " + strconv.Itoa(index))
@@ -48,7 +42,6 @@ func (todos *Todos) add(todoName string) error {
 	}
 
 	*todos = append(*todos, todo)
-
 	return nil
 }
 
@@ -58,7 +51,7 @@ func (todos *Todos) delete(index int) error {
 		return err
 	}
 
-	*todos = append((*todos)[:index], (*todos)[:index-1]...)
+	(*todos) = append((*todos)[:index], (*todos)[index+1:]...)
 	return nil
 }
 
@@ -69,7 +62,6 @@ func (todos *Todos) rename(index int, newName string) error {
 	}
 
 	(*todos)[index].Title = newName
-
 	return nil
 }
 
